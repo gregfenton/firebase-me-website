@@ -16,6 +16,10 @@ assignees: ''
 {{anchor:content anchor}}
 Content here...
 
+/*
+you can hide developer comments here
+*/
+
 ### Example Code block
 
 {{group:code}}
@@ -39,6 +43,4 @@ Content here...
 
 > **Warning:** This is an example warning.
 
-----
-you can hide developer comments between 4 dashes
-----
+
