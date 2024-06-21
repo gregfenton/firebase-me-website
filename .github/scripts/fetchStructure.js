@@ -1,6 +1,6 @@
-const { Octokit } = require("@octokit/rest");
-const fs = require('fs');
-const yaml = require('js-yaml');
+import { Octokit } from "@octokit/rest";
+import fs from 'fs';
+import yaml from 'js-yaml';
 
 const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN
