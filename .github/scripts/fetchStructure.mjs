@@ -6,7 +6,13 @@ const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN
 });
 
-const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/');
+const repository = process.env.GITHUB_REPOSITORY;
+if (!repository) {
+    console.error('GITHUB_REPOSITORY environment variable is not set');
+    process.exit(1);
+}
+
+const [owner, repo] = repository.split('/');
 const pathToFolder = 'paths';
 
 async function fetchFolderStructure() {
