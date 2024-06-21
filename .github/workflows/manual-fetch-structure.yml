@@ -19,5 +19,5 @@ jobs:
     - name: Install dependencies
       run: npm install js-yaml @octokit/rest
 
-    - name: Run fetchStructure.js
-      run: node .github/scripts/fetchStructure.js
+    - name: Run fetchStructure.mjs
+      run: node .github/scripts/fetchStructure.mjs
