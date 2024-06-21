@@ -6,8 +6,7 @@ const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN
 });
 
-const owner = 'YOUR_GITHUB_USERNAME';
-const repo = 'YOUR_REPOSITORY_NAME';
+const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/');
 const pathToFolder = 'paths';
 
 async function fetchFolderStructure() {
@@ -86,7 +85,49 @@ async function fetchFolderStructure() {
         });
     }
 
-    fs.writeFileSync('structure.json', JSON.stringify(result, null, 2));
+    const filePath = 'structure.json';
+    fs.writeFileSync(filePath, JSON.stringify(result, null, 2));
+
+    // Commit and push the structure.json file
+    const { data: refData } = await octokit.git.getRef({
+        owner,
+        repo,
+        ref: 'heads/main'
+    });
+
+    const { data: blobData } = await octokit.git.createBlob({
+        owner,
+        repo,
+        content: fs.readFileSync(filePath, 'utf8'),
+        encoding: 'utf-8'
+    });
+
+    const { data: treeData } = await octokit.git.createTree({
+        owner,
+        repo,
+        base_tree: refData.object.sha,
+        tree: [{
+            path: filePath,
+            mode: '100644',
+            type: 'blob',
+            sha: blobData.sha
+        }]
+    });
+
+    const { data: commitData } = await octokit.git.createCommit({
+        owner,
+        repo,
+        message: 'Update structure.json',
+        tree: treeData.sha,
+        parents: [refData.object.sha]
+    });
+
+    await octokit.git.updateRef({
+        owner,
+        repo,
+        ref: 'heads/main',
+        sha: commitData.sha
+    });
 }
 
 fetchFolderStructure().catch(err => console.error(err));
