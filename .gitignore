@@ -25,3 +25,6 @@ _config_secrets.yml
 .vscode/
 .idea/
 
+/pages/services/node_modules
+pages/services/package-lock.json
+pages/services/package.json

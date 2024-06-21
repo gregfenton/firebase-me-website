@@ -1,0 +1,22 @@
+build:
+  - authentication
+  - firestore
+  - realtime_db
+  - storage
+  - hosting
+  - cloud_functions
+  - ml_kit
+monitor:
+  - crashlytics
+  - monitoring #performance & monitoring
+  - remote_config
+  - test_lab
+  - app_distribution
+engage:
+  - cloud_messaging
+  - google_analytics
+  - app_check
+new_updates:
+  - gen_kit
+  - vertex_ai
+  - app_hosting
