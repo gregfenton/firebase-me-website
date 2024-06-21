@@ -1,0 +1,44 @@
+---
+name: New Article Submission
+about: Submit a new article for the documentation
+title: "[New Article] "
+labels: new-article
+assignees: ''
+---
+**Article Title**: 
+
+**Article Content** (in Markdown):
+
+# Title
+
+## Subtitle
+
+{{anchor:content anchor}}
+Content here...
+
+### Example Code block
+
+{{group:code}}
+```js
+// JavaScript example code
+```
+```py
+// Python example code
+```
+{{endgroup}}
+
+### Example URL
+
+[Example Link](https://example.com)
+
+### Example Note
+
+> **Note:** This is an example note.
+
+### Example Warning
+
+> **Warning:** This is an example warning.
+
+----
+you can hide developer comments between 4 dashes
+----
