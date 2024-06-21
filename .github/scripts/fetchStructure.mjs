@@ -10,10 +10,17 @@ const repository = process.env.GITHUB_REPOSITORY;
 if (!repository) {
     console.error('GITHUB_REPOSITORY environment variable is not set');
     process.exit(1);
+} else {
+    console.log(`GITHUB_REPOSITORY: ${repository}`);
 }
 
 const [owner, repo] = repository.split('/');
-const pathToFolder = 'paths';
+if (!owner || !repo) {
+    console.error('GITHUB_REPOSITORY environment variable is not correctly formatted');
+    process.exit(1);
+}
+
+const pathToFolder = 'pages';  // Update the directory to 'pages'
 
 async function fetchFolderStructure() {
     const result = [];
