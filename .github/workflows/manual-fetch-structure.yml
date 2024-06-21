@@ -22,5 +22,5 @@ jobs:
     - name: Run fetchStructure.mjs
       run: node .github/scripts/fetchStructure.mjs
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         GITHUB_REPOSITORY: ${{ github.repository }}
