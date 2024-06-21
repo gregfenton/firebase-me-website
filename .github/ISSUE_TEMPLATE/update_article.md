@@ -18,9 +18,7 @@ assignees: ''
 
 {{anchor:content anchor}}
 Content here...
-----
-inline comments
-----
+/* inline comments are hidden from the final output */
 ### Example Code block
 
 {{group:code}}
