@@ -12,10 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/dracula.min.css">
 
     <script type="text/javascript">
-        // Capture the current path
-        var path = window.location.pathname;
-        // Redirect to index.html with the captured path as a query parameter
-        window.location.href = '/index.html?path=' + encodeURIComponent(path);
+        window.location.href = '/index.html?path=' + encodeURIComponent(window.location.pathname);
     </script>
 </head>
 
@@ -29,7 +26,7 @@
             <!-- Categories will be dynamically loaded here -->
         </div>
     </header>
-    <div class="container" style="background-image: url('assets/images/background.jfif')">
+    <div class="container">
         <nav>
             <ul class="tocs" id="toc-list">
                 <!-- Navigation items will be dynamically loaded here -->
