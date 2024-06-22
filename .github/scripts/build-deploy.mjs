@@ -3,7 +3,7 @@ import path from 'path';
 import { execSync } from 'child_process';
 
 const deployDir = process.env.PUBLISH_DIR || 'deploy';  // Directory for deployment
-const filesToCopy = ['index.html', '404.html'];
+const filesToCopy = ['index.html', '404.html','structure.json'];
 const pathToPages = 'pages';  // Directory containing the markdown files
 const pathToAssets = 'assets';  // Directory containing assets
 const publishBranch = 'gh-pages';  // Branch for GitHub Pages
