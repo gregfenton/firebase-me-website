@@ -35,4 +35,5 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: deploy  # Publish the deploy directory
+        publish_dir: docs  # Publish to the docs folder
+        publish_branch: gh-pages  # Specify the gh-pages branch
