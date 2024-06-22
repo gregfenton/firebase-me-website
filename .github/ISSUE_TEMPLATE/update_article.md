@@ -1,5 +1,5 @@
 ---
-name: Change Request
+name: Suggest Article Change
 about: Request a change to an existing article
 title: "[Change Request] "
 labels: change-request
