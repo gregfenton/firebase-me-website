@@ -1,10 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+import { execSync } from 'child_process';
 
 const deployDir = process.env.PUBLISH_DIR || 'deploy';  // Directory for deployment
 const filesToCopy = ['index.html', '404.html'];
 const pathToPages = 'pages';  // Directory containing the markdown files
 const pathToAssets = 'assets';  // Directory containing assets
+const publishBranch = 'gh-pages';  // Branch for GitHub Pages
 
 function copyDirectory(src, dest, filterFn = () => true) {
     fs.mkdirSync(dest, { recursive: true });
@@ -22,21 +24,31 @@ function copyDirectory(src, dest, filterFn = () => true) {
     });
 }
 
+function fetchCNAME() {
+    try {
+        execSync(`git fetch origin ${publishBranch}`);
+        execSync(`git checkout origin/${publishBranch} -- CNAME`);
+        if (fs.existsSync('CNAME')) {
+            fs.copyFileSync('CNAME', path.join(deployDir, 'CNAME'));
+            console.log('CNAME file preserved.');
+        }
+    } catch (error) {
+        console.log('No existing CNAME file found or error during fetch:', error.message);
+    }
+}
+
 function buildAndDeploy() {
     // Ensure the deployment directory exists
     fs.mkdirSync(deployDir, { recursive: true });
-
+    // Fetch and preserve the existing CNAME file
+    fetchCNAME();
     // Copy specific files to the deployment directory
     filesToCopy.forEach(file => {
         fs.copyFileSync(file, path.join(deployDir, file));
     });
-
-    // Copy markdown files from the pages directory to the deployment directory
+    // Copy files to deployment
     copyDirectory(pathToPages, path.join(deployDir, pathToPages), name => name.endsWith('.md'));
-
-    // Copy the entire assets directory to the deployment directory
     copyDirectory(pathToAssets, path.join(deployDir, pathToAssets));
-
     console.log(`Build and deployment files copied successfully to ${deployDir}`);
 }
 
