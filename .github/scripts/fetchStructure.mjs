@@ -113,7 +113,12 @@ async function fetchFolderStructure() {
         });
     }
 
+
     const filePath = 'structure.json';
+    // Delete the old structure.json if it exists
+    if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+    }
     fs.writeFileSync(filePath, JSON.stringify(result, null, 2));
 
     console.log('structure.json generated successfully');
