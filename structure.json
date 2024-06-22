@@ -14,6 +14,12 @@
             "type": "dir",
             "children": [
               {
+                "name": "custom_claims.md",
+                "path": "pages/services/authentication/custom_claims.md",
+                "type": "file",
+                "children": []
+              },
+              {
                 "name": "custom_tokens.md",
                 "path": "pages/services/authentication/custom_tokens.md",
                 "type": "file",
@@ -124,6 +130,19 @@
         "name": "new_updates",
         "type": "category",
         "children": []
+      },
+      {
+        "name": "cloud_function",
+        "path": "pages/services/cloud_function",
+        "type": "dir",
+        "children": [
+          {
+            "name": "manage_functions.md",
+            "path": "pages/services/cloud_function/manage_functions.md",
+            "type": "file",
+            "children": []
+          }
+        ]
       }
     ]
   },
@@ -208,6 +227,12 @@
         "path": "pages/tutorials/misc",
         "type": "dir",
         "children": [
+          {
+            "name": "code_snippets.md",
+            "path": "pages/tutorials/misc/code_snippets.md",
+            "type": "file",
+            "children": []
+          },
           {
             "name": "common_tools.md",
             "path": "pages/tutorials/misc/common_tools.md",
