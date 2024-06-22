@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
             case '/':
             case '':
+            case null:
                 source = 'assets/welcome.md'
                 break;
             default:
@@ -36,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("current location:", current)
         console.log("current target:", target)
 
-        history.pushState(null, '', restore);
+        history.pushState(null, '', restore|'/');
         fetch(`${window.location.origin}/${source}`)
             .then(response => {
                 if (!response.ok) throw new Error('Content not found');
