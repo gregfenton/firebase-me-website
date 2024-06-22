@@ -1,6 +1,49 @@
 let currentLanguage = 'js'; // Default language
 
-function renderMarkdown(text, url) {
+async function loadMarkdown(url) {
+    let text = ''
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            text = await response.text();
+        } else {
+            throw new Error('Not found');
+        }
+    } catch (_error) {
+        try {
+            const response = await fetch('assets/404.md');
+            if (response.ok) {
+                text = await response.text();
+            } else {
+                throw new Error('Not found');
+            }
+        } catch (_error) {
+            text = "# Not Found\n # 404\n _resources not found_";
+        }
+    }
+    return text;
+}
+function renderMarkdown(input, url,update) {
+    let text = input ? input : '';
+    window.history.replaceState(null, '', window.location.origin);
+    if (!input && url) {
+        loadMarkdown(url).then(markdownText => {
+            text = markdownText;
+            renderMarkdown(text,url,update);
+        }).catch(error => {
+            console.error('Error loading markdown:', error);
+        });
+        return;
+    }
+
+    if(update){
+        // Update the URL without reloading the page
+        const relativePath = url.match(/pages\/(.+)\.md/)[1];
+        console.log("PATH", relativePath)
+        const newUrl = `${window.location.origin}/${relativePath}`;
+        window.history.replaceState(null, '', newUrl);
+    }
+
     const container = document.getElementById('markdown-content');
     const titleContainer = document.getElementById('document-title');
 

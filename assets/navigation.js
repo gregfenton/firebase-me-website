@@ -69,16 +69,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
             case 'file':
                 const link = document.createElement('a');
+
                 link.href = item.path;
                 link.textContent = formatFileName(item.name);
                 link.addEventListener('click', function (event) {
                     event.preventDefault();
-                    fetch(item.path)
-                        .then(response => response.text())
-                        .then(text => {
-                            renderMarkdown(text, item.path);
-                        })
-                        .catch(error => console.error('Error fetching the markdown file:', error));
+
+                    window.history.replaceState(null, '', null);
+                    console.log("item path", item.path)
+                    renderMarkdown(null, item.path, true);
                 });
                 listItem.appendChild(link);
                 break;
@@ -88,27 +87,4 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         return listItem;
     }
-
-    // Load welcome.md by default
-    fetch('assets/welcome.md')
-        .then(response => {
-            if (!response.ok)
-                throw new Error(`HTTP error! status: ${response.status}`);
-            return response.text();
-        })
-        .then(text => {
-            renderMarkdown(text, 'assets/welcome.md');
-        })
-        .catch(error => console.error('Error loading welcome.md:', error));
-
-    // Load welcome.md when clicking on the home link
-    document.getElementById('home-link').addEventListener('click', function (event) {
-        event.preventDefault();
-        fetch('assets/welcome.md')
-            .then(response => response.text())
-            .then(text => {
-                renderMarkdown(text, 'assets/welcome.md');
-            })
-            .catch(error => console.error('Error loading welcome.md:', error));
-    });
 });
