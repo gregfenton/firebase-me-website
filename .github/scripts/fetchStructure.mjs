@@ -64,7 +64,7 @@ async function fetchFolderStructure() {
 
             categoryItems.forEach(name => {
                 const item = contents.find(content => content.name === name);
-                if (item) {
+                if (item && item.type === 'file' && item.name.endsWith('.md')) {
                     const node = {
                         name: item.name,
                         path: item.path,
@@ -73,10 +73,16 @@ async function fetchFolderStructure() {
                     };
                     categoryNode.children.push(node);
                     assignedItems.add(item.name);
-
-                    if (item.type === 'dir') {
-                        stack.push({ path: item.path, parent: node.children });
-                    }
+                } else if (item && item.type === 'dir') {
+                    const node = {
+                        name: item.name,
+                        path: item.path,
+                        type: item.type,
+                        children: []
+                    };
+                    categoryNode.children.push(node);
+                    assignedItems.add(item.name);
+                    stack.push({ path: item.path, parent: node.children });
                 }
             });
         }
@@ -86,14 +92,22 @@ async function fetchFolderStructure() {
         remainingItems.sort((a, b) => a.name.localeCompare(b.name));
 
         remainingItems.forEach(item => {
-            const node = {
-                name: item.name,
-                path: item.path,
-                type: item.type,
-                children: []
-            };
-            parent.push(node);
-            if (item.type === 'dir') {
+            if (item.type === 'file' && item.name.endsWith('.md')) {
+                const node = {
+                    name: item.name,
+                    path: item.path,
+                    type: item.type,
+                    children: []
+                };
+                parent.push(node);
+            } else if (item.type === 'dir') {
+                const node = {
+                    name: item.name,
+                    path: item.path,
+                    type: item.type,
+                    children: []
+                };
+                parent.push(node);
                 stack.push({ path: item.path, parent: node.children });
             }
         });
