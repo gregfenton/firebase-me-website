@@ -22,7 +22,6 @@ if (!owner || !repo) {
 }
 
 const pathToFolder = 'pages';  // Update the directory to 'pages'
-const deployDir = 'deploy';  // Directory for deployment
 
 async function fetchFolderStructure() {
     const result = [];
@@ -100,34 +99,10 @@ async function fetchFolderStructure() {
         });
     }
 
-    const filePath = path.join(deployDir, 'structure.json');
-    fs.mkdirSync(deployDir, { recursive: true });
+    const filePath = 'structure.json';
     fs.writeFileSync(filePath, JSON.stringify(result, null, 2));
 
-    // Copy specific files to the deployment directory
-    const filesToCopy = ['index.html', '404.html'];
-    filesToCopy.forEach(file => {
-        fs.copyFileSync(file, path.join(deployDir, file));
-    });
-
-    // Copy pages directory to the deployment directory
-    copyDirectory(pathToFolder, path.join(deployDir, pathToFolder));
-}
-
-function copyDirectory(src, dest) {
-    fs.mkdirSync(dest, { recursive: true });
-    const entries = fs.readdirSync(src, { withFileTypes: true });
-
-    entries.forEach(entry => {
-        const srcPath = path.join(src, entry.name);
-        const destPath = path.join(dest, entry.name);
-
-        if (entry.isDirectory()) {
-            copyDirectory(srcPath, destPath);
-        } else {
-            fs.copyFileSync(srcPath, destPath);
-        }
-    });
+    console.log('structure.json generated successfully');
 }
 
 fetchFolderStructure().catch(err => console.error(err));
