@@ -10,9 +10,30 @@ body {
 header {
     background-color: #333;
     color: #fff;
-    padding: 10px 20px;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+/* Style for all normal links */
+a {
+    color: #ffa100;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #ffa100;
+}
+
+a:hover {
+    color: #fa4f16;
+    text-decoration: underline;
+}
+
+/* HEADER */
+header .title {
+    display: flex;
     align-items: center;
 }
 
@@ -21,15 +42,16 @@ header .title {
     align-items: center;
 }
 
-header .title img {
-    height: 40px;
-    margin-right: 10px;
+.home-link a {
+    color: #fff;
 }
 
 header .categories a {
     color: #fff;
     margin-right: 20px;
-    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-transform: uppercase;
 }
 
 .container {
@@ -66,7 +88,7 @@ nav ul li span {
     cursor: pointer;
 }
 
-nav ul li.active > ul {
+nav ul li.active>ul {
     display: block;
 }
 
@@ -78,7 +100,8 @@ nav ul li span::after {
     content: ' ▶';
 }
 
-nav ul li a:hover, nav ul li a.active {
+nav ul li a:hover,
+nav ul li a.active {
     color: #ffcc00;
 }
 
@@ -87,7 +110,7 @@ nav ul li.active {
     color: #000;
 }
 
-nav ul.nav-list > li.active {
+nav ul.nav-list>li.active {
     background-color: #ff6600;
 }
 
@@ -167,7 +190,8 @@ footer a {
     text-decoration: none;
 }
 
-.toc li a:hover, .toc li a.active {
+.toc li a:hover,
+.toc li a.active {
     color: #ffcc00;
 }
 
@@ -176,17 +200,52 @@ footer a {
     color: #000;
 }
 
+/* Centered Images */
+.centered-content {
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+}
+
+.centered-content p {
+    display: block;
+    margin: 10px auto;
+    text-align: center;
+    /* Ensures text is centered */
+    flex-wrap: wrap;
+    /* Ensures that the content wraps if necessary */
+}
+
+img {
+    max-width: 100%;
+    margin: 10px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.centered-content img {
+    display: block;
+    margin: 10px auto;
+}
+
+/* Carousel */
 .carousel {
     display: flex;
+    justify-content: center;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     gap: 10px;
     padding: 10px;
+    text-align: center;
+    /* Ensures text is centered */
 }
+
+/* Center text inside carousel */
 
 .carousel img {
     scroll-snap-align: center;
-    max-width: calc(100% - 20px);
+    max-width: 100%;
     height: auto;
     cursor: pointer;
     transition: transform 0.2s;

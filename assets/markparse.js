@@ -4,10 +4,11 @@ function renderMarkdown(text, url) {
     const container = document.getElementById('markdown-content');
     const titleContainer = document.getElementById('document-title');
 
-    // Extract and set the document title
+    // Extract and set the document title, ensuring it's the first # in the document
     const titleMatch = text.match(/^#\s(.+)/m);
     if (titleMatch) {
         titleContainer.textContent = titleMatch[1];
+        text = text.replace(titleMatch[0], ''); // Remove the title line from the content
     } else {
         titleContainer.textContent = 'Document';
     }
@@ -35,6 +36,16 @@ function renderMarkdown(text, url) {
     });
 
     container.innerHTML = marked.parse(finalText.join('\n'));
+
+    // Ensure default images are not centered
+    container.querySelectorAll('img').forEach(img => {
+        const parent = img.parentElement;
+        if (parent.tagName !== 'P') {
+            const p = document.createElement('p');
+            parent.insertBefore(p, img);
+            p.appendChild(img);
+        }
+    });
 
     // Generate TOC from custom anchors
     const tocContainer = document.querySelector('.toc');
@@ -95,11 +106,26 @@ function renderGroup(content, type) {
     if (type === 'code') {
         return renderCodeGroup(content);
     } else if (type === 'center') {
-        return `<div class="center-images">${marked.parse(content)}</div>`;
+        return `<div class="centered-content">${marked.parse(content)}</div>`;
     } else if (type === 'carousel') {
-        return `<div class="carousel">${marked.parse(content)}</div>`;
+        return renderCarousel(content);
     }
-    return content;
+    return marked.parse(content);
+}
+
+function renderCarousel(content) {
+    const lines = content.split('\n');
+    let result = '<div class="centered-content"><div class="carousel">';
+    lines.forEach(line => {
+        if (line.startsWith('![')) {
+            result += marked.parse(line).replace('<p>', '').replace('</p>', '') + '\n';
+        } else {
+            result += '</div>\n' + marked.parse(line) + '\n<div class="carousel">';
+        }
+    });
+
+    result += '</div></div>';
+    return result;
 }
 
 function renderCodeGroup(groupContent) {
@@ -111,7 +137,7 @@ function renderCodeGroup(groupContent) {
         const regex = new RegExp(`^\\s*\\\`\\\`\\\`${lang}([\\s\\S]*?)\\\`\\\`\\\``, 'm');
         const match = groupContent.match(regex);
         if (match) {
-            result += `<pre><code class="language-${lang}" style="display: none;">${match[1].trim()}</code></pre>\n`;
+            result += `<pre><code class="language-${lang}">${match[1].trim()}</code></pre>\n`;
         }
     });
 
