@@ -66,7 +66,7 @@ header .categories a {
 }
 span.alpha {
     font-family: 'Times New Roman', Times, serif; /* or any other fancy font */
-    font-size: 1.5em; /* adjust size as needed */
+    font-size: 0.8em; /* adjust size as needed */
     color: #ff5733; /* change to desired color */
     letter-spacing: 0.1em; /* optional: adds space between letters */
 }

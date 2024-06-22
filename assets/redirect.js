@@ -8,17 +8,18 @@ document.addEventListener("DOMContentLoaded", function () {
     loadContent(window.location.pathname);
 
     function loadContent(path) {
-        const restore = getQueryParams('path');
+        let restore = getQueryParams('path');
+        if(restore&& restore.startsWith('/'))
+            restore = restore.slice(1);
 
         let source;
         switch (restore) {
-            case '/privacy':
+            case 'privacy':
                 source = 'assets/privacy.md'
                 break;
-            case '/404':
+            case '404':
                 source = 'assets/404.md'
                 break;
-            case '/':
             case '':
             case null:
                 source = 'assets/welcome.md'
@@ -30,14 +31,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!source) return;
         source = source.replace('//', '/');
 
-        const current = `${window.location.origin}/${restore}`;
+        const current = `${window.location.origin}/${restore}`.replace('//', '/');
         const target = `${window.location.origin}/${source}`;
         console.log("Restoring url:", restore)
         console.log("source url:", source)
         console.log("current location:", current)
         console.log("current target:", target)
 
-        history.pushState(null, '', restore|'/');
+        history.replaceState(null, '',restore);
         fetch(`${window.location.origin}/${source}`)
             .then(response => {
                 if (!response.ok) throw new Error('Content not found');
