@@ -1,12 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>404 Not Found</title>
-    <meta http-equiv="refresh" content="0; URL='/index.html'" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Me</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/dracula.min.css">
+
+    <script type="text/javascript">
+        // Capture the current path
+        var path = window.location.pathname;
+        // Redirect to index.html with the captured path as a query parameter
+        window.location.href = '/index.html?path=' + encodeURIComponent(path);
+    </script>
 </head>
+
 <body>
-    <h1>404 Not Found</h1>
-    <p>Redirecting to <a href="/index.html">home page</a>...</p>
+    <header>
+        <div class="title">
+            <img src="assets/images/icon.png" alt="Icon">
+            <h1><a href="#" id="home-link" style="color: white;">Firebase Me</a></h1>
+        </div>
+        <div class="categories" id="category-list">
+            <!-- Categories will be dynamically loaded here -->
+        </div>
+    </header>
+    <div class="container" style="background-image: url('assets/images/background.jfif')">
+        <nav>
+            <ul class="tocs" id="toc-list">
+                <!-- Navigation items will be dynamically loaded here -->
+            </ul>
+            <ul class="subjects" id="subject-list">
+                <!-- Navigation items will be dynamically loaded here -->
+            </ul>
+        </nav>
+        <main id="content">
+            <h2 id="document-title" style="margin-bottom: 0px;">
+                <br/>
+            </h2>
+            <div class="content-body" id="markdown-content">
+                Restoring single page behaviour
+            </div>
+        </main>
+    </div>
+    <footer>
+        <p>
+            <br />
+        </p>
+    </footer>
 </body>
+
 </html>
