@@ -204,6 +204,19 @@
         ]
       },
       {
+        "name": "misc",
+        "path": "pages/tutorials/misc",
+        "type": "dir",
+        "children": [
+          {
+            "name": "common_tools.md",
+            "path": "pages/tutorials/misc/common_tools.md",
+            "type": "file",
+            "children": []
+          }
+        ]
+      },
+      {
         "name": "node",
         "path": "pages/tutorials/node",
         "type": "dir",
