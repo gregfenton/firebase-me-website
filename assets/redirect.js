@@ -26,11 +26,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
         }
         if(!source) return;
+        source = source.replace('//','/');
         
         const current = `${window.location.origin}/${restore}`;
-        // console.log("Restoring url:", restore)
-        // console.log("source url:", source)
-        // console.log("current location:", current)
+        const target = `${window.location.origin}/${source}`;
+        console.log("Restoring url:", restore)
+        console.log("source url:", source)
+        console.log("current location:", current)
+        console.log("current location:", target)
 
         history.pushState(null, '', restore);
         fetch(`${window.location.origin}/${source}`)
