@@ -175,3 +175,24 @@ footer a {
     background-color: #ffcc00;
     color: #000;
 }
+
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 10px;
+    padding: 10px;
+}
+
+.carousel img {
+    scroll-snap-align: center;
+    max-width: calc(100% - 20px);
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.carousel img.pop-out {
+    transform: scale(1.5);
+    z-index: 1000;
+}
