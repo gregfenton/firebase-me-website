@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const deployDir = 'deploy';  // Directory for deployment
+const deployDir = process.env.PUBLISH_DIR || 'docs';  // Directory for deployment
 const filesToCopy = ['index.html', '404.html'];
 const pathToPages = 'pages';  // Directory containing the markdown files
 const pathToAssets = 'assets';  // Directory containing assets
@@ -37,7 +37,7 @@ function buildAndDeploy() {
     // Copy the entire assets directory to the deployment directory
     copyDirectory(pathToAssets, path.join(deployDir, pathToAssets));
 
-    console.log('Build and deployment files copied successfully');
+    console.log(`Build and deployment files copied successfully to ${deployDir}`);
 }
 
 buildAndDeploy();
