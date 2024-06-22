@@ -1,11 +1,17 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     fetch('structure.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok)
+                throw new Error(`HTTP error! status: ${response.status}`);
+            return response.json();
+        })
         .then(data => {
-            populateCategories(data);
-            const initialCategory = data[0];
-            if (initialCategory && initialCategory.children) {
-                populateNavigation(initialCategory.children);
+            if (Array.isArray(data)) {
+                populateCategories(data);
+                const initialCategory = data[0];
+                if (initialCategory && initialCategory.children) {
+                    populateNavigation(initialCategory.children);
+                }
             }
         })
         .catch(error => console.error('Error loading structure.json:', error));
@@ -26,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function populateNavigation(children) {
-        const navList = document.getElementById('nav-list');
+        const navList = document.getElementById('subject-list');
         navList.innerHTML = '';
         children.forEach(child => {
             const listItem = createNavItem(child);
@@ -36,55 +42,67 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function createNavItem(item) {
         const listItem = document.createElement('li');
-        if (item.type === 'dir') {
-            const span = document.createElement('span');
-            span.classList.add('nav-item');
-            span.textContent = item.name;
-            span.addEventListener('click', function () {
-                listItem.classList.toggle('active');
-                const childList = listItem.querySelector('ul');
-                if (childList) {
-                    childList.classList.toggle('hidden');
-                }
-            });
-            listItem.appendChild(span);
-            if (item.children) {
-                const childList = document.createElement('ul');
-                childList.classList.add('submenu', 'hidden');
-                item.children.forEach(child => {
-                    const childItem = createNavItem(child);
-                    childList.appendChild(childItem);
+        switch (item.type) {
+            case 'dir':
+            case 'category':
+
+                const span = document.createElement('span');
+                span.classList.add('nav-item');
+                span.textContent = formatFileName(item.name);
+                span.addEventListener('click', function () {
+                    listItem.classList.toggle('active');
+                    const childList = listItem.querySelector('ul');
+                    if (childList) {
+                        childList.classList.toggle('hidden');
+                    }
                 });
-                listItem.appendChild(childList);
-            }
-        } else if (item.type === 'file') {
-            const link = document.createElement('a');
-            link.href = item.path;
-            link.textContent = item.name;
-            link.addEventListener('click', function (event) {
-                event.preventDefault();
-                fetch(item.path)
-                    .then(response => response.text())
-                    .then(text => {
-                        renderMarkdown(text, item.path);
-                    })
-                    .catch(error => console.error('Error fetching the markdown file:', error));
-            });
-            listItem.appendChild(link);
+                listItem.appendChild(span);
+                if (item.children) {
+                    const childList = document.createElement('ul');
+                    childList.classList.add('submenu', 'hidden');
+                    item.children.forEach(child => {
+                        const childItem = createNavItem(child);
+                        childList.appendChild(childItem);
+                    });
+                    listItem.appendChild(childList);
+                }
+                break;
+            case 'file':
+                const link = document.createElement('a');
+                link.href = item.path;
+                link.textContent = formatFileName(item.name);
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    fetch(item.path)
+                        .then(response => response.text())
+                        .then(text => {
+                            renderMarkdown(text, item.path);
+                        })
+                        .catch(error => console.error('Error fetching the markdown file:', error));
+                });
+                listItem.appendChild(link);
+                break;
+
+            default:
+                break;
         }
         return listItem;
     }
 
     // Load welcome.md by default
     fetch('assets/welcome.md')
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok)
+                throw new Error(`HTTP error! status: ${response.status}`);
+            return response.text();
+        })
         .then(text => {
             renderMarkdown(text, 'assets/welcome.md');
         })
         .catch(error => console.error('Error loading welcome.md:', error));
 
     // Load welcome.md when clicking on the home link
-    document.getElementById('home-link').addEventListener('click', function(event) {
+    document.getElementById('home-link').addEventListener('click', function (event) {
         event.preventDefault();
         fetch('assets/welcome.md')
             .then(response => response.text())
