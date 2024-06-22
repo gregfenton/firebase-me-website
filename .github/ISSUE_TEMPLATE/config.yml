@@ -1,0 +1,85 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Community Support
+    url: https://firebase.me/contact
+    about: If you have questions, need help, or want to discuss something with the community.
+  - name: Request a Feature
+    url: https://github.com/firebase-me/website/issues/new?template=feature_request.md
+    about: Use this template to suggest a new feature or enhancement.
+  - name: Unban Request
+    url: https://github.com/firebase-me/website/issues/new?template=unban_request.md
+    about: Use this template to request being unbanned from our Discord server.
+
+issue_templates:
+  - name: Feature Request
+    description: Suggest a new feature or enhancement.
+    labels: ['enhancement']
+    assignees: []
+    body:
+      - type: markdown
+        attributes:
+          value: |
+            ## Feature request
+
+            **Is your feature request related to a problem? Please describe.**
+            A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+
+      - type: textarea
+        attributes:
+          label: Describe the solution you'd like
+          description: A clear and concise description of what you want to happen.
+          value: ''
+
+      - type: textarea
+        attributes:
+          label: Describe alternatives you've considered (if applicable)
+          description: A clear and concise description of any alternative solutions or features you've considered.
+          value: ''
+
+      - type: textarea
+        attributes:
+          label: Additional context
+          description: Add any other context or screenshots about the feature request here.
+          value: ''
+
+  - name: Unban Request
+    description: Request to be unbanned from our Discord server.
+    labels: ['unban-request']
+    assignees: []
+    body:
+      - type: input
+        attributes:
+          label: Discord ID
+          description: Your full Discord ID (e.g., Username#1234).
+          placeholder: 'Username#1234'
+          value: ''
+          required: true
+
+      - type: textarea
+        attributes:
+          label: Reason for Ban
+          description: Why do you think you were banned?
+          placeholder: 'I believe I was banned because...'
+          value: ''
+          required: true
+
+      - type: textarea
+        attributes:
+          label: Reason to Appeal
+          description: Acknowledge any fault or mistake, and explain why you believe you should be unbanned.
+          placeholder: 'I acknowledge that... and I believe I should be unbanned because...'
+          value: ''
+          required: true
+
+      - type: textarea
+        attributes:
+          label: Additional Information
+          description: Any other relevant information you think we should know.
+          placeholder: 'Any additional information...'
+          value: ''
+
+      - type: markdown
+        attributes:
+          value: |
+            **Acknowledgement:**
+            I understand that submitting this request does not guarantee that I will be unbanned and that the decision is at the discretion of the moderators.
