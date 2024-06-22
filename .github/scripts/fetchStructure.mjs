@@ -1,5 +1,6 @@
 import { Octokit } from "@octokit/rest";
 import fs from 'fs';
+import path from 'path';
 import yaml from 'js-yaml';
 
 const octokit = new Octokit({
@@ -21,6 +22,7 @@ if (!owner || !repo) {
 }
 
 const pathToFolder = 'pages';  // Update the directory to 'pages'
+const deployDir = 'deploy';  // Directory for deployment
 
 async function fetchFolderStructure() {
     const result = [];
@@ -98,48 +100,33 @@ async function fetchFolderStructure() {
         });
     }
 
-    const filePath = 'structure.json';
+    const filePath = path.join(deployDir, 'structure.json');
+    fs.mkdirSync(deployDir, { recursive: true });
     fs.writeFileSync(filePath, JSON.stringify(result, null, 2));
 
-    // Commit and push the structure.json file
-    const { data: refData } = await octokit.git.getRef({
-        owner,
-        repo,
-        ref: 'heads/main'
+    // Copy specific files to the deployment directory
+    const filesToCopy = ['index.html', '404.html'];
+    filesToCopy.forEach(file => {
+        fs.copyFileSync(file, path.join(deployDir, file));
     });
 
-    const { data: blobData } = await octokit.git.createBlob({
-        owner,
-        repo,
-        content: fs.readFileSync(filePath, 'utf8'),
-        encoding: 'utf-8'
-    });
+    // Copy pages directory to the deployment directory
+    copyDirectory(pathToFolder, path.join(deployDir, pathToFolder));
+}
 
-    const { data: treeData } = await octokit.git.createTree({
-        owner,
-        repo,
-        base_tree: refData.object.sha,
-        tree: [{
-            path: filePath,
-            mode: '100644',
-            type: 'blob',
-            sha: blobData.sha
-        }]
-    });
+function copyDirectory(src, dest) {
+    fs.mkdirSync(dest, { recursive: true });
+    const entries = fs.readdirSync(src, { withFileTypes: true });
 
-    const { data: commitData } = await octokit.git.createCommit({
-        owner,
-        repo,
-        message: 'Update structure.json',
-        tree: treeData.sha,
-        parents: [refData.object.sha]
-    });
+    entries.forEach(entry => {
+        const srcPath = path.join(src, entry.name);
+        const destPath = path.join(dest, entry.name);
 
-    await octokit.git.updateRef({
-        owner,
-        repo,
-        ref: 'heads/main',
-        sha: commitData.sha
+        if (entry.isDirectory()) {
+            copyDirectory(srcPath, destPath);
+        } else {
+            fs.copyFileSync(srcPath, destPath);
+        }
     });
 }
 
