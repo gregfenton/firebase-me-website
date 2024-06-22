@@ -1,0 +1,51 @@
+---
+name: Documentation Feedback
+about: Report issues with outdated, changed, removed, or broken features in the documentation or guides
+title: "[Doc Feedback] - "
+labels: documentation, feedback
+assignees: ''
+
+---
+
+**Description of the Issue:**
+Please provide a brief description of the issue you encountered with the documentation or guide.
+
+**Page/Section with the Issue:**
+- URL or section name:
+- Relevant headers or sub-headers:
+
+**Nature of the Issue:**
+- [ ] The feature has changed
+- [ ] The feature has been removed
+- [ ] The feature is broken
+- [ ] The documentation is outdated
+
+**Details:**
+Please provide more details about the issue. If the feature has changed or been removed, describe the new behavior or the absence of the feature. If the feature is broken, provide details on how it is failing. If the documentation is outdated, describe the discrepancies.
+
+**Steps to Reproduce (if applicable):**
+1. Go to [URL or Section]
+2. Follow the instructions or use the feature as described
+3. Observe the issue
+
+**Expected Behavior:**
+What you expected to happen.
+
+**Actual Behavior:**
+What actually happened.
+
+**Screenshots or Examples:**
+If applicable, please attach any screenshots or examples that could help illustrate the issue.
+
+**Your Environment:**
+- **Operating System:**
+- **Browser (if applicable):**
+- **Version:**
+
+**Additional Context:**
+Add any other context or information that might be relevant to the issue.
+
+**Suggestions for Improvement:**
+Do you have any suggestions on how this documentation or guide can be improved?
+
+Thank you for taking the time to provide your feedback. We appreciate your help in keeping our documentation accurate and up-to-date!
