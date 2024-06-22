@@ -48,9 +48,10 @@ function renderMarkdown(text, url) {
     });
 
     // Generate TOC from custom anchors
-    const tocContainer = document.querySelector('.toc');
+    const tocContainer = document.querySelector('.tocs');
     tocContainer.innerHTML = '';
     const anchorRegex = /{{anchor:([^}]+)}}/g;
+
     let match;
     while ((match = anchorRegex.exec(text)) !== null) {
         const label = match[1].trim();

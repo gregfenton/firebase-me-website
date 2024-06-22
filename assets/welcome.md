@@ -9,7 +9,6 @@ Firebase Me is a community initiative for Google Firebase and its documentation.
 To get started, choose a category from the top which will change the navigation menu on the left. Each category contains detailed documentation and examples to help you integrate Firebase into your applications.
 
 ## Community
-
 Our community is hosted on Discord where you can interact with other Firebase enthusiasts, discuss your projects, or ask questions in our dedicated threads.
 
 {{group:carousel}}
