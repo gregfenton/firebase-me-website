@@ -1,11 +1,9 @@
-name: Build and Deploy
+name: Build and Deploy to GitHub Pages
 
 on:
   push:
     branches:
       - main
-    paths:
-      - 'paths/**'
   workflow_dispatch:
 
 jobs:
@@ -14,30 +12,24 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: '20'
 
     - name: Install dependencies
-      run: npm install @octokit/rest
+      run: npm install js-yaml @octokit/rest
 
-    - name: Generate structure.json
+    - name: Run fetchStructure.mjs
+      run: node .github/scripts/fetchStructure.mjs
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: node .github/scripts/fetchStructure.js
+        GITHUB_REPOSITORY: ${{ github.repository }}
 
-    - name: Generate index.html
-      run: node .github/scripts/generateIndex.js
-
-    - name: Commit and push changes
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add index.html
-        git commit -m "Update index.html with new structure"
-        git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: deploy  # Publish the deploy directory
