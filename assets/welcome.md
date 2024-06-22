@@ -12,7 +12,7 @@ To get started, choose a category from the top which will change the navigation 
 Our community is hosted on Discord where you can interact with other Firebase enthusiasts, discuss your projects, or ask questions in our dedicated threads.
 
 {{group:carousel}}
-![Discord Logo](assets/images/discord-purple.png)
+![Discord Logo](/assets/images/discord-purple.png)
 ### Join our [Discord](https://discord.firebase.me "Firebase Me on Discord") community
 {{endgroup}}
 
