@@ -20,6 +20,7 @@ header {
 a {
     color: #ffa100;
     text-decoration: none;
+    font-weight: 500;
 }
 
 a:visited {
