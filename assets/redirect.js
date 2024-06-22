@@ -10,8 +10,23 @@ document.addEventListener("DOMContentLoaded", function () {
     function loadContent(path) {
         const restore = getQueryParams('path');
 
-        let source = restore?`pages/${restore}.md`:'assets/welcome.md';
-
+        let source;
+        switch (restore) {
+            case 'privacy':
+                source = 'assets/privacy.md'
+                break;
+            case '404':
+                source = 'assets/404.md'
+                break;
+            case '':
+                source = 'assets/welcome.md'
+                break;
+            default:
+                source = `pages/${restore}.md`
+                break;
+        }
+        if(!source) return;
+        
         const current = `${window.location.origin}/${restore}`;
         // console.log("Restoring url:", restore)
         // console.log("source url:", source)
