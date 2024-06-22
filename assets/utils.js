@@ -21,6 +21,13 @@ function formatFileName(fileName) {
     return formattedWords.join(' ');
 }
 
+function getQueryParams(item) {
+    // Create a URLSearchParams object from the query string
+    const params = new URLSearchParams(window.location.search);
+    // Get the value of the 'path' query parameter
+    const path = params.get(item);
+    return path;
+}
 // Function to convert a string to camelCase
 function toCamelCase(str) {
     return str.replace(/(?:^\w|[A-Z]|\b\w|\s+|[-_])/g, function(match, index) {

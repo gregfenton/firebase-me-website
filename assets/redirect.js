@@ -8,21 +8,23 @@ document.addEventListener("DOMContentLoaded", function () {
     loadContent(window.location.pathname);
 
     function loadContent(path) {
-        // Treat index.html as the home page
-        if (path === '/' || path === '/index.html') {
-            path = '/';
-        }
+        const restore = getQueryParams('path');
 
-        const url = path === '/' ? 'assets/welcome.md' : `pages/${path}.md`;
-        
+        let source = restore?`pages/${restore}.md`:'assets/welcome.md';
 
-        fetch(url)
+        const current = `${window.location.origin}/${restore}`;
+        // console.log("Restoring url:", restore)
+        // console.log("source url:", source)
+        // console.log("current location:", current)
+
+        history.pushState(null, '', restore);
+        fetch(`${window.location.origin}/${source}`)
             .then(response => {
                 if (!response.ok) throw new Error('Content not found');
                 return response.text();
             })
             .then(text => {
-                renderMarkdown(text, url);
+                renderMarkdown(text, source);
             })
             .catch(error => {
                 console.error('Error loading content:', error);
@@ -32,22 +34,25 @@ document.addEventListener("DOMContentLoaded", function () {
                         renderMarkdown(text, 'assets/404.md');
                     });
             });
+        // select path from navication
+        // set category
+        // set node
     }
 
-    // Function to handle internal navigation
-    document.querySelectorAll('nav ul.nav-list a').forEach(link => {
-        link.addEventListener('click', function (event) {
-            event.preventDefault();
-            const url = link.getAttribute('href');
-            history.pushState(null, null, url);
-            loadContent(url);
-        });
-    });
+    // // Function to handle internal navigation
+    // document.querySelectorAll('nav ul.nav-list a').forEach(link => {
+    //     link.addEventListener('click', function (event) {
+    //         event.preventDefault();
+    //         const url = link.getAttribute('href');
+    //         history.pushState(null, null, url);
+    //         loadContent(url);
+    //     });
+    // });
 
-    // Load welcome.md when clicking on the home link
-    document.getElementById('home-link').addEventListener('click', function (event) {
-        event.preventDefault();
-        history.pushState(null, null, '/');
-        loadContent('/');
-    });
+    // // Load welcome.md when clicking on the home link
+    // document.getElementById('home-link').addEventListener('click', function (event) {
+    //     event.preventDefault();
+    //     history.pushState(null, null, '/');
+    //     loadContent('/');
+    // });
 });
