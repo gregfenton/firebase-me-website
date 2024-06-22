@@ -12,12 +12,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let source;
         switch (restore) {
-            case 'privacy':
+            case '/privacy':
                 source = 'assets/privacy.md'
                 break;
-            case '404':
+            case '/404':
                 source = 'assets/404.md'
                 break;
+            case '/':
             case '':
                 source = 'assets/welcome.md'
                 break;
@@ -25,15 +26,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 source = `pages/${restore}.md`
                 break;
         }
-        if(!source) return;
-        source = source.replace('//','/');
-        
+        if (!source) return;
+        source = source.replace('//', '/');
+
         const current = `${window.location.origin}/${restore}`;
         const target = `${window.location.origin}/${source}`;
         console.log("Restoring url:", restore)
         console.log("source url:", source)
         console.log("current location:", current)
-        console.log("current location:", target)
+        console.log("current target:", target)
 
         history.pushState(null, '', restore);
         fetch(`${window.location.origin}/${source}`)
