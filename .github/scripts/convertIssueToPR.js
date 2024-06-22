@@ -10,6 +10,20 @@ const octokit = new Octokit({
 async function run() {
     const issue = context.payload.issue;
 
+    if (issue.labels.some(label => label.name === 'new-article')) {
+        const [articleTitle, articleContent] = parseNewArticleIssue(issue.body);
+        const branchName = `issue-${issue.number}-new-article`;
+
+        // Create a new branch
+        await createBranch(branchName);
+
+        // Add the new article
+        await addNewArticle(issue.number, branchName, articleTitle, articleContent);
+
+        // Create a pull request
+        await createPullRequest(issue.title, branchName, issue.number);
+    }
+
     if (issue.labels.some(label => label.name === 'change-request')) {
         const [articleToChange, linesToChange, proposedChanges] = parseIssueBody(issue.body);
         const branchName = `issue-${issue.number}`;
@@ -50,7 +64,7 @@ async function createBranch(branchName) {
 }
 
 async function updateBranch(issueNumber, branchName, articleToChange, linesToChange, proposedChanges) {
-    const filePath = path.join('paths', articleToChange);
+    const filePath = path.join('pages', articleToChange);
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const updatedContent = applyChanges(fileContent, linesToChange, proposedChanges);
 
@@ -68,6 +82,24 @@ async function updateBranch(issueNumber, branchName, articleToChange, linesToCha
     });
 }
 
+async function addNewArticle(issueNumber, branchName, articleTitle, articleContent) {
+    const filePath = path.join('pages', `${articleTitle.replace(/\s+/g, '_').toLowerCase()}.md`);
+    const content = `# ${articleTitle}\n\n${articleContent}`;
+
+    // Write the new content to the file
+    fs.writeFileSync(filePath, content);
+
+    // Commit and push the changes
+    await octokit.repos.createOrUpdateFileContents({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        path: filePath,
+        message: `Add new article from issue #${issueNumber}`,
+        content: Buffer.from(content).toString('base64'),
+        branch: branchName
+    });
+}
+
 async function createPullRequest(title, branchName, issueNumber) {
     await octokit.pulls.create({
         owner: context.repo.owner,
@@ -77,6 +109,14 @@ async function createPullRequest(title, branchName, issueNumber) {
         base: 'main',
         body: `This PR addresses issue #${issueNumber}`
     });
+}
+
+function parseNewArticleIssue(body) {
+    const lines = body.split('\n').map(line => line.trim());
+    const articleTitle = lines.find(line => line.startsWith('**Article Title**')).split(': ')[1];
+    const proposedChangesIndex = lines.findIndex(line => line.startsWith('**Article Content**'));
+    const articleContent = lines.slice(proposedChangesIndex + 1).join('\n').trim();
+    return [articleTitle, articleContent];
 }
 
 function parseIssueBody(body) {
