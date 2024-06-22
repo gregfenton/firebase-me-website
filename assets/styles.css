@@ -64,7 +64,12 @@ header .categories a {
     background-repeat: no-repeat;
     background-attachment: fixed; /* optional */
 }
-
+span.alpha {
+    font-family: 'Times New Roman', Times, serif; /* or any other fancy font */
+    font-size: 1.5em; /* adjust size as needed */
+    color: #ff5733; /* change to desired color */
+    letter-spacing: 0.1em; /* optional: adds space between letters */
+}
 nav {
     width: 250px;
     background-color: #1b1b1b;
