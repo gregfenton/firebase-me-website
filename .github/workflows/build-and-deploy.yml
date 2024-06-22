@@ -40,3 +40,12 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: deploy  # Publish to the deploy folder
         publish_branch: gh-pages  # Specify the gh-pages branch
+
+    - name: Cleanup old workflow runs
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo "Installing octokit"
+        npm install @octokit/rest
+        echo "Running delete-old-runs.mjs"
+        node .github/scripts/delete-old-runs.mjs
