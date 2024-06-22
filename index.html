@@ -11,24 +11,17 @@
 <body>
     <header>
         <div class="title">
-            <img src="assets/icon.png" alt="Icon">
-            <h1>Firebase Me</h1>
+            <img src="assets/icon.png" alt="Icon" style="width: 48px; height: 48px;">
+            <h1><a href="#" id="home-link">Firebase Me</a></h1>
         </div>
-        <div class="categories">
-            <!-- CATEGORY_PLACEHOLDER -->
-            <a href="#">Example</a>
+        <div class="categories" id="category-list">
+            <!-- Categories will be dynamically loaded here -->
         </div>
     </header>
     <div class="container">
         <nav>
-            <ul class="nav-list">
-                <li>
-                    <span class="nav-item">Content</span>
-                    <ul class="submenu toc"></ul>
-                </li>
-            </ul>
             <ul class="nav-list" id="nav-list">
-                <!-- NAVIGATION_PLACEHOLDER -->
+                <!-- Navigation items will be dynamically loaded here -->
             </ul>
         </nav>
         <main id="content">
@@ -44,6 +37,8 @@
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/3.0.2/marked.min.js"></script>
+    <script src="assets/navigation.js"></script>
+    <script src="assets/markparse.js"></script>
     <script src="assets/script.js"></script>
 </body>
 </html>
