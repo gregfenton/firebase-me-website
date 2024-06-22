@@ -2,6 +2,7 @@ let currentLanguage = 'js'; // Default language
 
 async function loadMarkdown(url) {
     let text = ''
+    if(!url.startsWith('http')) url = `${window.location.origin}/${url}`
     try {
         const response = await fetch(url);
         if (response.ok) {
@@ -25,7 +26,7 @@ async function loadMarkdown(url) {
 }
 function renderMarkdown(input, url,update) {
     let text = input ? input : '';
-    window.history.replaceState(null, '', window.location.origin);
+    // window.history.replaceState(null, '', window.location.origin);
     if (!input && url) {
         loadMarkdown(url).then(markdownText => {
             text = markdownText;

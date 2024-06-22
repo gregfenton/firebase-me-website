@@ -57,6 +57,7 @@ header .categories a {
 .container {
     display: flex;
     flex: 1;
+    background-image: url('/assets/images/background.jfif');
     background-color: #ffa100;
     background-size: cover; /* or 'contain' */
     background-position: center;
