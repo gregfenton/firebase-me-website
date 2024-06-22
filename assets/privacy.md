@@ -4,13 +4,15 @@
 
 Welcome to https://firebase.me ("Firebase Me"). Your privacy is important to us, and we are committed to protecting your personal data. This privacy policy will inform you about how we handle your personal data when you visit our Website.
 
-## No Tracking or User Data Collection (Except Google AdSense)
+## Tracking and User Data Collection
 
-Our Website does not collect, track, or store any personal data from our users, except for the use of Google AdSense. We do not use cookies, analytics, or any other tracking technologies beyond what is necessary for Google AdSense. Your visit to our Website is otherwise completely anonymous.
+Our website does not collect, track, or store any personal data from our users. We do not use cookies, analytics, or any other tracking technologies. Your visit to our website is completely anonymous.
 
 ### Google AdSense
 
-We use Google AdSense to display ads on our Website. Google AdSense may use cookies to serve ads based on a user's prior visits to our Website or other websites. You can opt out of personalized advertising by visiting [Google Ads Settings](https://adssettings.google.com/authenticated). For more information on how Google uses data, please refer to [Google's Privacy Policy](https://policies.google.com/privacy).
+We use Google AdSense to display ads on our website. Google AdSense may use cookies to serve ads based on a user's prior visits to our website or other websites. You can opt out of personalized advertising by visiting [Google Ads Settings](https://adssettings.google.com/authenticated). For more information on how Google uses data, please refer to [Google's Privacy Policy](https://policies.google.com/privacy).
+
+We value privacy and autonomy. While we do not endorse tracking behaviors with web technology, it is necessary as the only source of revenue for our community.
 
 ## Open Source and Peer-Reviewed Content
 
