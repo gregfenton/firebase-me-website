@@ -194,21 +194,21 @@ python goes here
 ### Stylings
 {{group:center}}
 Centers all content vertically
-![Alt Text](/assets/images/logo.png)
-![Alt Text](/assets/images/logo.png)
-![Alt Text](/assets/images/logo.png)
+![Alt Text](/assets/images/icon.png)
+![Alt Text](/assets/images/icon.png)
+![Alt Text](/assets/images/icon.png)
 {{endgroup}}
 
 {{group:carousel}}
 Aligns all images horizontally
-![Alt Text](/assets/images/logo.png)
-![Alt Text](/assets/images/logo.png)
-![Alt Text](/assets/images/logo.png)
+![Alt Text](/assets/images/icon.png)
+![Alt Text](/assets/images/icon.png)
+![Alt Text](/assets/images/icon.png)
 other content
 ### breaks carousel
-![Alt Text](/assets/images/logo.png)
-![Alt Text](/assets/images/logo.png)
-![Alt Text](/assets/images/logo.png)
-![Alt Text](/assets/images/logo.png)
-![Alt Text](/assets/images/logo.png)
+![Alt Text](/assets/images/icon.png)
+![Alt Text](/assets/images/icon.png)
+![Alt Text](/assets/images/icon.png)
+![Alt Text](/assets/images/icon.png)
+![Alt Text](/assets/images/icon.png)
 {{endgroup}}
