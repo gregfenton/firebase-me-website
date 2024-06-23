@@ -3,7 +3,7 @@
 This document provides a collection of helpful tools for developers. Each tool includes a summary, use case examples, and a URL for quick access. These tools are designed to provide short, quick results or to be especially useful for development tasks.
 
 ## Encoding and Decoding
-{{anchor:Encoding}}
+{{crumb:Encoding}}
 
 ### Base64 Encode
 - **URL:** [base64encode.org](https://www.base64encode.org)
@@ -70,7 +70,7 @@ This document provides a collection of helpful tools for developers. Each tool i
 - **Use Case:** Formats JavaScript, TypeScript, JSON, CSS, and more, ensuring code consistency.
 
 ## HTML Tools
-{{anchor:HTML & CSS}}
+{{crumb:HTML & CSS}}
 
 ### HTML Formatter
 - **URL:** [htmlformatter.com](https://htmlformatter.com)
@@ -90,7 +90,7 @@ This document provides a collection of helpful tools for developers. Each tool i
 - **Use Case:** Ensures that CSS code adheres to web standards.
 
 ## HTML/CSS/JS Sandbox
-{{anchor:sandboxes}}
+{{crumb:sandboxes}}
 
 ### CodePen
 - **URL:** [codepen.io](https://codepen.io)
@@ -103,7 +103,7 @@ This document provides a collection of helpful tools for developers. Each tool i
 - **Use Case:** Useful for experimenting with code and sharing working examples.
 
 ## Image tools
-{{anchor:image_tools}}
+{{crumb:image_tools}}
 
 ### Favicon Converter
 - **URL:** [favicon.io/favicon-converter](https://favicon.io/favicon-converter/)
@@ -121,7 +121,7 @@ This document provides a collection of helpful tools for developers. Each tool i
 - **Use Case:** Ideal for optimizing images for web use.
 
 ## Performance Testing
-{{anchor:performance}}
+{{crumb:performance}}
 
 ### GTmetrix
 - **URL:** [gtmetrix.com](https://gtmetrix.com)
@@ -134,7 +134,7 @@ This document provides a collection of helpful tools for developers. Each tool i
 - **Use Case:** Useful for improving the speed and performance of web pages.
 
 ## API Testing
-{{anchor:api_testing}}
+{{crumb:api_testing}}
 
 ### Postman
 - **URL:** [postman.com](https://www.postman.com)
@@ -147,7 +147,7 @@ This document provides a collection of helpful tools for developers. Each tool i
 - **Use Case:** Useful for debugging and testing APIs.
 
 ## Other Useful Tools
-{{anchor:other tools}}
+{{crumb:other tools}}
 
 ### Can I use
 - **URL:** [caniuse.com](https://caniuse.com)

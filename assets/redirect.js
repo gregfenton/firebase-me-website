@@ -9,22 +9,14 @@ function getSource(path) {
 
     let source;
     switch (path) {
-        case 'privacy':
-        case 'policy':
-            source = 'assets/privacy.md'
-            break;
-        case 'contact':
-            source = 'assets/contact.md'
-            break;
-        case '404':
-            source = 'assets/404.md'
-            break;
+        case 'privacy': source = 'assets/privacy.md'; break;
+        case 'contact': source = 'assets/contact.md'; break;
+        case '404': source = 'assets/404.md'; break;
+        case 'markdown': source = 'assets/markdown.md'; break;
+        case '':
         case 'home':
         case 'index.html':
-        case '':
-        case null:
-            source = 'assets/welcome.md'
-            break;
+        case null: source = 'assets/welcome.md'; break;
         default:
             source = `pages/${path}.md`
             break;

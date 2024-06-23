@@ -10,7 +10,7 @@ Firestore is a flexible, scalable database for mobile, web, and server developme
 ## Example Code
 
 ### Fetching a single document
-{{anchor:Read single document}}
+{{crumb:Read single document}}
 {{group:code}}
 ```js
 // JavaScript
@@ -64,7 +64,7 @@ else:
 
 ### Fetching multiple documents
 
-{{anchor:Read many documents}}
+{{crumb:Read many documents}}
 {{group:code}}
 ```js
 // JavaScript
@@ -105,7 +105,7 @@ for doc in docs:
 ```
 {{endgroup}}
 
-{{anchor:Warnings}}
+{{crumb:Warnings}}
 
 > **Warning:** When using Firestore, be aware that querying on multiple fields with different operators can result in performance issues. Always ensure indexes are properly set up to optimize query execution times.
 
