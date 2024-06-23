@@ -1,35 +1,7 @@
-// Redirect is for updating the content and url location
+// Redirect is for updating the content based on the url
 // for a page load we check if there is a path redirect (?path=value)
-// for a user click event, we repeat the process for the new path click
-// after both these conditions, we inform the navigation.js that we have moved
-function loadContent(input) {
-    const source = getSource(input)
-    const target = `${window.location.origin}/${source}`;
-    console.log("source url:", source)
-    // console.log("current location:", current)
-    console.log("current target:", target)
+// when the url location changes, we repeat the process for the new path
 
-    history.replaceState(null, '', input);
-    fetch(target)
-        .then(response => {
-            if (!response.ok) throw new Error('Content not found');
-            return response.text();
-        })
-        .then(text => {
-            renderMarkdown(text, source);
-        })
-        .catch(error => {
-            console.error('Error loading content:', error);
-            fetch(getSource("404"))
-                .then(response => response.text())
-                .then(text => {
-                    renderMarkdown(text, 'assets/404.md');
-                });
-        });
-    // select path from navication
-    // set category
-    // set node
-}
 function getSource(path) {
     if (path && path.startsWith('/'))
         path = path.slice(1);
@@ -61,6 +33,32 @@ function getSource(path) {
     return source.replace('//', '/');
 }
 document.addEventListener("DOMContentLoaded", function () {
+    function loadContent(input) {
+        const source = getSource(input)
+        const target = `${window.location.origin}/${source}`;
+        console.log("source url:", source)
+        // console.log("current location:", current)
+        console.log("current target:", target)
+
+        history.replaceState(null, '', input);
+        fetch(target)
+            .then(response => {
+                if (!response.ok) throw new Error('Content not found');
+                return response.text();
+            })
+            .then(text => {
+                renderMarkdown(text, source);
+            })
+            .catch(error => {
+                console.error('Error loading content:', error);
+                fetch(getSource("404"))
+                    .then(response => response.text())
+                    .then(text => {
+                        renderMarkdown(text, 'assets/404.md');
+                    })
+                    .catch(error => renderMarkdown("# FATAL 404 ERROR\n > Something went wrong.\n" + JSON.stringify(err)))
+            });
+    }
     // Handle browser navigation events
     window.addEventListener('popstate', function () {
         loadContent(window.location.pathname);
@@ -68,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initial load
     let restore = getQueryParams('path');
-    loadContent(restore);
-    // loadContent(window.location.pathname);
+    loadContent(restore ? restore : window.location.pathname);
 
 });
