@@ -3,17 +3,13 @@
 // for a user click event, we repeat the process for the new path click
 // after both these conditions, we inform the navigation.js that we have moved
 function loadContent(input) {
-    let restore = getQueryParams('path');
     const source = getSource(input)
-
-    const current = `${window.location.origin}/${restore}`.replace('//', '/');
     const target = `${window.location.origin}/${source}`;
-    console.log("Restoring url:", restore)
     console.log("source url:", source)
-    console.log("current location:", current)
+    // console.log("current location:", current)
     console.log("current target:", target)
 
-    history.replaceState(null, '', restore);
+    history.replaceState(null, '', input);
     fetch(target)
         .then(response => {
             if (!response.ok) throw new Error('Content not found');
@@ -70,6 +66,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // });
 
     // Initial load
-    loadContent(window.location.pathname);
+    let restore = getQueryParams('path');
+    loadContent(restore);
+    // loadContent(window.location.pathname);
 
 });
