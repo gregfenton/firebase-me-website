@@ -1,5 +1,5 @@
 
-{{anchor:custom_claims}}
+{{crumb:custom_claims}}
 ## Custom claims without Cloud Function
 normally this is reserved behind a cloud function, managing users by adding and removing claims in realtime per your apps life cycle, but if you need to set a users custom claims once and forget about it, and without using a firestore document as a workaround, try this script.
 {{group:code}}

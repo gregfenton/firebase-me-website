@@ -94,7 +94,7 @@ function renderMarkdown(input, url,update) {
     // Generate TOC from custom anchors
     const tocContainer = document.querySelector('.tocs');
     tocContainer.innerHTML = '';
-    const anchorRegex = /{{anchor:([^}]+)}}/g;
+    const anchorRegex = /{{crumb:([^}]+)}}/g;
 
     let match;
     while ((match = anchorRegex.exec(text)) !== null) {
