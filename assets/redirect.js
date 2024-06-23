@@ -60,7 +60,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
     // Handle browser navigation events
-    window.addEventListener('popstate', function () {
+    window.addEventListener('popstate', function (state) {
+        // console.info("POPSTATE", state)
         loadContent(window.location.pathname);
     });
 
