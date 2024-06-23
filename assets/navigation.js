@@ -3,8 +3,10 @@
 // redirect.js will handle the content
 function goto(dest) {
     const loc = dest.startsWith('pages/') ? dest.slice(6) : dest
+    // this triggers redirect to load the page content
+    console.log("goto", loc, "dest", dest)
     window.history.replaceState(null, '', loc);
-    renderMarkdown(null, dest, true);
+    // renderMarkdown(null, dest, true);
 }
 document.addEventListener("DOMContentLoaded", function () {
     fetch('structure.json')
