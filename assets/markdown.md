@@ -171,7 +171,7 @@ You can link to [this header](#custom-id).
 to make sure certain aspects are available to us without breaking existing markdown, we provide grouped behaviours
 
 ### BreadCrumb
-> {{crumb:Name of Crumb}}
+{\{crumb:Name of Crumb}}
 {{crumb:Name of Crumb}}
 
 ### grouped code blocks
