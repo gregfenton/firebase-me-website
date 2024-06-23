@@ -92,25 +92,6 @@
                 "path": "pages/services/firestore/firestore_writes.md",
                 "type": "file",
                 "children": []
-              },
-              {
-                "name": "placeholder.md",
-                "path": "pages/services/firestore/placeholder.md",
-                "type": "file",
-                "children": []
-              },
-              {
-                "name": "security_rules",
-                "path": "pages/services/firestore/security_rules",
-                "type": "dir",
-                "children": [
-                  {
-                    "name": "placeholder.md",
-                    "path": "pages/services/firestore/security_rules/placeholder.md",
-                    "type": "file",
-                    "children": []
-                  }
-                ]
               }
             ]
           }
