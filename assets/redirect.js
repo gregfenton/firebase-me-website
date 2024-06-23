@@ -47,6 +47,7 @@ function getSource(path) {
         case '404':
             source = 'assets/404.md'
             break;
+        case 'home':
         case 'index.html':
         case '':
         case null:
@@ -61,9 +62,9 @@ function getSource(path) {
 }
 document.addEventListener("DOMContentLoaded", function () {
     // Handle browser navigation events
-    // window.addEventListener('popstate', function () {
-    //     loadContent(window.location.pathname);
-    // });
+    window.addEventListener('popstate', function () {
+        loadContent(window.location.pathname);
+    });
 
     // Initial load
     let restore = getQueryParams('path');
