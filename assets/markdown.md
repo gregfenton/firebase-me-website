@@ -50,15 +50,11 @@
 
 ## Images
 
-![Alt Text](/assets/images/logo.png)
+![Alt Text](https://firebase.me/assets/images/icon.png)
 
 ![Reference Image][2]
 
-[2]: https://firebase.me/assets/images/logo.png
-
-![Reference Image][3]
-
-[3]: /assets/images/logo.png
+[2]: /assets/images/logo.png
 
 ## Blockquotes
 
@@ -170,13 +166,13 @@ You can link to [this header](#custom-id).
 [Link to top](#comprehensive-markdown-guide)
 
 
-# Custom Markdown++
+## Custom Markdown++
 
 to make sure certain aspects are available to us without breaking existing markdown, we provide grouped behaviours
 
 ### BreadCrumb
-{{crumb:Name of Crumb 1}}
-{{crumb:Name_of_Crumb-2}}
+> {{crumb:Name of Crumb}}
+{{crumb:Name of Crumb}}
 
 ### grouped code blocks
 {{group:code}}
