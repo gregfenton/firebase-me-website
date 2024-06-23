@@ -1,3 +1,11 @@
+// navigation handles all click events and the navigation stack
+// when the user clicks a link, we update the location
+// redirect.js will handle the content
+function goto(dest) {
+    const loc = dest.startsWith('pages/') ? dest.slice(6) : dest
+    window.history.replaceState(null, '', loc);
+    renderMarkdown(null, dest, true);
+}
 document.addEventListener("DOMContentLoaded", function () {
     fetch('structure.json')
         .then(response => {
@@ -74,10 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 link.textContent = formatFileName(item.name);
                 link.addEventListener('click', function (event) {
                     event.preventDefault();
-
-                    window.history.replaceState(null, '', null);
-                    console.log("item path", item.path)
-                    renderMarkdown(null, item.path, true);
+                    goto(item.path)
                 });
                 listItem.appendChild(link);
                 break;
