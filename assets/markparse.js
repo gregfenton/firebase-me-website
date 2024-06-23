@@ -94,25 +94,25 @@ function renderMarkdown(input, url,update) {
     // Generate TOC from custom anchors
     const tocContainer = document.querySelector('.tocs');
     tocContainer.innerHTML = '';
-    const anchorRegex = /{{crumb:([^}]+)}}/g;
+    const crumbRegex = /{{crumb:([^}]+)}}/g;
 
     let match;
-    while ((match = anchorRegex.exec(text)) !== null) {
+    while ((match = crumbRegex.exec(text)) !== null) {
         const label = match[1].trim();
-        const anchorId = label.toLowerCase().replace(/\s+/g, '-');
-        const anchorLink = document.createElement('a');
-        anchorLink.href = `#${anchorId}`;
-        anchorLink.textContent = label;
-        anchorLink.addEventListener('click', function () {
+        const crumbId = label.toLowerCase().replace(/\s+/g, '-');
+        const crumbLink = document.createElement('a');
+        crumbLink.href = `#${crumbId}`;
+        crumbLink.textContent = label;
+        crumbLink.addEventListener('click', function () {
             document.querySelectorAll('.toc li a').forEach(a => a.classList.remove('active'));
-            anchorLink.classList.add('active');
+            crumbLink.classList.add('active');
         });
         const listItem = document.createElement('li');
-        listItem.appendChild(anchorLink);
+        listItem.appendChild(crumbLink);
         tocContainer.appendChild(listItem);
 
         const anchorElement = document.createElement('a');
-        anchorElement.id = anchorId;
+        anchorElement.id = crumbId;
         container.innerHTML = container.innerHTML.replace(match[0], anchorElement.outerHTML);
     }
 
