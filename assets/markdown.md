@@ -42,19 +42,23 @@
 
 ## Links
 
-[Inline Link](https://www.example.com)
+[Inline Link](https://firebase.google.com)
 
 [Reference Link][1]
 
-[1]: https://www.example.com
+[1]: https://firebase.google.com
 
 ## Images
 
-![Alt Text](https://www.example.com/image.jpg)
+![Alt Text](/assets/images/logo.png)
 
 ![Reference Image][2]
 
-[2]: https://www.example.com/image.jpg
+[2]: https://firebase.me/assets/images/logo.png
+
+![Reference Image][3]
+
+[3]: /assets/images/logo.png
 
 ## Blockquotes
 
@@ -68,17 +72,17 @@
 `inline code`
 
 ### Code Block
-\`\`\`javascript
+```javascript
 function sayHello() {
   console.log("Hello, World!");
 }
-\`\`\`
+```
 
 ### Fenced Code Block with Syntax Highlighting
-\`\`\`python
+```python
 def say_hello():
     print("Hello, World!")
-\`\`\`
+```
 
 ## Tables
 
@@ -97,6 +101,7 @@ def say_hello():
 
 ## Escaping Characters
 
+*This text is not italic*
 \*This text is not italic\*
 
 ## Footnotes
@@ -152,7 +157,7 @@ This is a warning.
 
 ## Videos
 
-![Video](https://www.example.com/video.mp4)
+![Video](https://battle-hardened-cache.b-cdn.net/media/battle-studio.mp4)
 
 ## Custom IDs for Headers
 
@@ -170,7 +175,8 @@ You can link to [this header](#custom-id).
 to make sure certain aspects are available to us without breaking existing markdown, we provide grouped behaviours
 
 ### BreadCrumb
-{{crumb:name}}
+{{crumb:Name of Crumb 1}}
+{{crumb:Name_of_Crumb-2}}
 
 ### grouped code blocks
 {{group:code}}
@@ -187,10 +193,22 @@ python goes here
 
 ### Stylings
 {{group:center}}
-venters all content vertically
+Centers all content vertically
+![Alt Text](/assets/images/logo.png)
+![Alt Text](/assets/images/logo.png)
+![Alt Text](/assets/images/logo.png)
 {{endgroup}}
 
 {{group:carousel}}
-aligns all images horizontally
-text starts new lines
+Aligns all images horizontally
+![Alt Text](/assets/images/logo.png)
+![Alt Text](/assets/images/logo.png)
+![Alt Text](/assets/images/logo.png)
+other content
+### breaks carousel
+![Alt Text](/assets/images/logo.png)
+![Alt Text](/assets/images/logo.png)
+![Alt Text](/assets/images/logo.png)
+![Alt Text](/assets/images/logo.png)
+![Alt Text](/assets/images/logo.png)
 {{endgroup}}
