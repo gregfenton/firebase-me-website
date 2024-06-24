@@ -1,20 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vertical Navbar</title>
+    <title>Navbar with Header and Sidebars</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&display=swap"
+        rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
         }
-        .navbar {
+
+        .header {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            display: flex;
+            /* justify-content: center; */
+            /* align-items: center; */
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            justify-content: space-between;
+            /* Space out header buttons and menu button */
+            align-items: center;
+            /* Vertically center the items */
+            /* random theme? */
+            border-bottom: 2px solid red;
+        }
+
+        .header .header-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: nowrap;
+            /* Prevent wrapping */
+            overflow-x: auto;
+            /* Allow horizontal scrolling if necessary */
+        }
+
+        .header .header-buttons button {
+            white-space: nowrap;
+            /* Prevent text from wrapping inside the buttons */
+        }
+
+        .header button {
+            background-color: #575757;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            /* random theme? */
+            transition: background-color 0.3s;
+        }
+
+        .header button:hover {
+            background-color: gold;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            width: 100%;
+        }
+
+        .sidebar {
             width: 200px;
             background-color: #333;
             color: white;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            /* random theme? */
+            border-right: 2px solid red;
         }
-        .navbar button, .navbar a {
+
+        .crumbs {
+            background-color: #333;
+            padding: 10px;
+            height: 20px;
+            /* Default height when empty */
+            overflow-y: scroll;
+            transition: height 0.5s ease;
+        }
+
+        .crumbs.has-content {
+            height: 140px;
+            /* Fixed height when it has content */
+            overflow-y: scroll;
+        }
+
+        .crumbs::-webkit-scrollbar {
+            width: 16px;
+        }
+
+        .crumbs::-webkit-scrollbar-track {
+            background: #333;
+            border-radius: 10px;
+        }
+
+        .crumbs::-webkit-scrollbar-thumb {
+            background-color: gold;
+            border-radius: 10px;
+            border: 4px solid #333;
+            /* Adjust border to maintain contrast with increased thickness */
+        }
+
+        .crumbs::-webkit-scrollbar-thumb:hover {
+            background-color: #FFD700;
+            /* Lighter gold on hover */
+        }
+
+        .crumbs button {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 5px;
+            margin-bottom: 5px;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .crumbs button.active {
+            background-color: black;
+            /* Highlight active crumb */
+            color: white;
+        }
+
+        .navbar {
+            flex: 1;
+            overflow: auto;
+            /* random theme? */
+            background-color: #333;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .navbar button,
+        .navbar a {
             width: 100%;
             text-align: left;
             border: none;
@@ -26,57 +158,169 @@
             display: block;
             cursor: pointer;
             position: relative;
+            font-weight: 500;
+            /* random theme? */
+            transition: background-color 0.3s;
         }
-        .navbar button:hover, .navbar a:hover {
-            background-color: #575757;
+
+        .navbar button:hover,
+        .navbar a:hover {
+            background-color: #555;
         }
+
         .navbar .dropdown-btn {
             font-size: 16px;
-            border-bottom: 1px solid #575757;
+            border-bottom: 1px solid #555;
+            font-family: 'Roboto', sans-serif;
+            /* Folder navigation font */
         }
+
+        .navbar .file-link {
+            font-family: 'Open Sans', sans-serif;
+            /* File button font */
+        }
+
         .navbar .dropdown-btn.has-children:after {
             content: '\002B';
             float: right;
-            color: white;
+            font-weight: 700;
         }
+
         .navbar .dropdown-btn.no-children:after {
             content: '\002B';
+            font-weight: 500;
             float: right;
             color: darkgray;
         }
+
+        .navbar .dropdown-btn.open:after {
+            content: '\2212';
+            font-weight: 700;
+        }
+
         .navbar .dropdown-container {
             display: none;
-            background-color: #414141;
+            background-color: #333;
         }
-        .navbar button.selected, .navbar a.selected {
-            background-color: yellow !important;
+
+        .navbar button.selected,
+        .navbar a.selected {
+            background-color: gold !important;
             color: black !important;
         }
+
         .navbar a.selected-file {
             text-decoration: underline !important;
+            background-color: orange !important;
+            font-weight: 800;
         }
+
         .open:after {
             content: "\2212";
         }
+
+        .toggle-nav {
+            display: none;
+        }
+
+        /* Media queries for mobile responsiveness */
+        @media (max-width: 768px) {
+
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                display: none;
+                /* Hide sidebar by default */
+            }
+
+            .sidebar.active {
+                display: flex;
+                /* Show sidebar when active */
+            }
+
+            .navbar {
+                width: 100%;
+            }
+
+            .content {
+                width: 100%;
+            }
+
+            .toggle-nav {
+                display: block;
+                background-color: #444;
+                color: white;
+                border: none;
+                padding: 10px;
+                cursor: pointer;
+                text-align: center;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <div class="navbar" id="navbar">
-        <!-- The navbar content will be generated by JavaScript -->
+    <div class="header">
+        <div class="header-buttons" id="header-buttons">
+            <!-- Header buttons will be generated here -->
+        </div>
+        <button class="toggle-nav" onclick="toggleNav()">☰ Menu</button>
+    </div>
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <div class="crumbs" id="crumbtray">
+                <!-- crumb items for sidebar will be generated here -->
+            </div>
+            <div class="navbar" id="navbar">
+                <!-- navbar content will be generated by JavaScript -->
+            </div>
+        </div>
+        <div class="content">
+            <!-- Main content -->
+            <h1>Main Content Area</h1>
+        </div>
     </div>
 
     <script>
+        let jsonData;
+
+        // Function to generate the header buttons from root items in JSON
+        function generateHeaderButtons(data) {
+            const headerButtons = document.getElementById('header-buttons');
+            headerButtons.innerHTML = ''; // Clear existing buttons
+            data.forEach((item, index) => {
+                const button = document.createElement('button');
+                button.textContent = item.name;
+                button.addEventListener('click', () => {
+                    switchNavContent(index);
+                });
+                headerButtons.appendChild(button);
+            });
+        }
+
+        // Function to switch the content in the navbar based on the selected header tab
+        function switchNavContent(index) {
+            const selectedData = jsonData[index].children;
+            const navbar = document.getElementById('navbar');
+            navbar.innerHTML = '';
+            generateNavbar(selectedData, navbar);
+        }
+
         // Function to generate the navbar HTML based on JSON data
         function generateNavbar(data, parentElement, depth = 0) {
             data.forEach(item => {
                 if (item.type === "category" || item.type === "dir") {
                     const btn = document.createElement("button");
                     btn.className = `dropdown-btn ${item.children.length ? 'has-children' : 'no-children'}`;
-                    btn.textContent = item.name;
+                    btn.textContent = sanitizeName(item.name);
                     btn.style.paddingLeft = `${16 + depth * 12}px`;
 
                     if (item.children.length) {
-                        btn.addEventListener("click", function() {
+                        btn.addEventListener("click", function () {
                             this.classList.toggle("open");
                             const dropdownContent = this.nextElementSibling;
                             if (dropdownContent) {
@@ -94,11 +338,12 @@
                     }
                 } else if (item.type === "file") {
                     const link = document.createElement("a");
-                    link.textContent = item.name;
+                    link.textContent = sanitizeName(item.name);
                     link.className = 'file-link';
                     link.style.paddingLeft = `${16 + depth * 12}px`;
-                    link.addEventListener("click", function() {
+                    link.addEventListener("click", function () {
                         console.log(item.path);
+                        generateRandomCrumbs();
                         const allLinks = document.querySelectorAll('.navbar a, .navbar button');
                         allLinks.forEach(link => link.classList.remove('selected', 'selected-file'));
                         this.classList.add('selected', 'selected-file');
@@ -116,14 +361,64 @@
             });
         }
 
-        // Fetch the JSON data and generate the navbar
+        function sanitizeName(input) {
+            const baseName = input.replace(/\.(html|md|js|yaml|yml|json)$/i, '');
+            const withSpaces = baseName.replace(/[_-]/g, ' ');
+
+            // List of filler words to exclude from capitalization
+            const fillerWords = ['in', 'of', 'the', 'and', 'a', 'to', 'for', 'with'];
+
+            const words = withSpaces.split(' ');
+            const formattedWords = words.map((word, index) => {
+                if (index === 0 || !fillerWords.includes(word.toLowerCase())) {
+                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                }
+                return word.toLowerCase();
+            });
+            return formattedWords.join(' ');
+        }
+
+        // Function to generate random crumbs for crumbtray
+        function generateRandomCrumbs() {
+            const crumbs = document.getElementById('crumbtray');
+            crumbs.innerHTML = ''; // Clear existing items
+            const itemCount = Math.floor(Math.random() * 11); // Random number of items between 0 and 10
+            if (itemCount > 0) {
+                crumbs.classList.add('has-content');
+            } else {
+                crumbs.classList.remove('has-content');
+            }
+            for (let i = 0; i < itemCount; i++) {
+                const button = document.createElement('button');
+                button.textContent = `Anchor ${i + 1}`;
+                button.addEventListener('click', () => highlightActiveCrumb(button));
+                crumbs.appendChild(button);
+            }
+        }
+
+        // Toggle the visibility of the sidebar on mobile
+        function toggleNav() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Handle active crumb highlighting
+        function highlightActiveCrumb(button) {
+            const allCrumbs = document.querySelectorAll('.crumbs button');
+            allCrumbs.forEach(crumb => crumb.classList.remove('active'));
+            button.classList.add('active');
+        }
+
+        // Fetch the JSON data and initialize the navbar and header
         fetch('structure.json')
             .then(response => response.json())
             .then(data => {
-                const navbar = document.getElementById("navbar");
-                generateNavbar(data, navbar);
+                jsonData = data;
+                generateHeaderButtons(data);
+                switchNavContent(0); // Display the first tab's content by default
             })
             .catch(error => console.error('Error loading JSON:', error));
     </script>
 </body>
+
 </html>
