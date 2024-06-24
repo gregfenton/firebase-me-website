@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"">
     <title>Navbar with Header and Sidebars</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&display=swap"
+    <link href="
+        https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&display=swap"
         rel="stylesheet">
     <style>
         body {
@@ -224,7 +225,9 @@
         }
 
         /* Media queries for mobile responsiveness */
-        @media (max-width: 768px) {
+        @media (max-width: 768px),
+        (min-device-pixel-ratio: 2),
+        (min-resolution: 192dpi) {
 
             .container {
                 flex-direction: column;
@@ -287,6 +290,7 @@
 
     <script>
         let jsonData;
+        const approvedFiles = ['md'];
 
         // Function to generate the header buttons from root items in JSON
         function generateHeaderButtons(data) {
@@ -337,32 +341,36 @@
                         parentElement.appendChild(btn);
                     }
                 } else if (item.type === "file") {
-                    const link = document.createElement("a");
-                    link.textContent = sanitizeName(item.name);
-                    link.className = 'file-link';
-                    link.style.paddingLeft = `${16 + depth * 12}px`;
-                    link.addEventListener("click", function () {
-                        console.log(item.path);
-                        generateRandomCrumbs();
-                        const allLinks = document.querySelectorAll('.navbar a, .navbar button');
-                        allLinks.forEach(link => link.classList.remove('selected', 'selected-file'));
-                        this.classList.add('selected', 'selected-file');
-                        let parent = this.parentElement;
-                        while (parent && parent.classList.contains('dropdown-container')) {
-                            const siblingButton = parent.previousElementSibling;
-                            if (siblingButton) {
-                                siblingButton.classList.add('selected');
+                    const fileExtension = item.name.split('.').pop();
+                    if (approvedFiles.includes(fileExtension)) {
+                        const link = document.createElement("a");
+                        link.textContent = sanitizeName(item.name);
+                        link.className = 'file-link';
+                        link.style.paddingLeft = `${16 + depth * 12}px`;
+                        link.addEventListener("click", function () {
+                            console.log(item.path);
+                            generateRandomCrumbs();
+                            const allLinks = document.querySelectorAll('.navbar a, .navbar button');
+                            allLinks.forEach(link => link.classList.remove('selected', 'selected-file'));
+                            this.classList.add('selected', 'selected-file');
+                            let parent = this.parentElement;
+                            while (parent && parent.classList.contains('dropdown-container')) {
+                                const siblingButton = parent.previousElementSibling;
+                                if (siblingButton) {
+                                    siblingButton.classList.add('selected');
+                                }
+                                parent = parent.parentElement;
                             }
-                            parent = parent.parentElement;
-                        }
-                    });
-                    parentElement.appendChild(link);
+                        });
+                        parentElement.appendChild(link);
+                    }
                 }
             });
         }
 
         function sanitizeName(input) {
-            const baseName = input.replace(/\.(html|md|js|yaml|yml|json)$/i, '');
+            const baseName = input.replace(/\.(md)$/i, '');
+            // const baseName = input.replace(/\.(html|md|js|yaml|yml|json)$/i, '');
             const withSpaces = baseName.replace(/[_-]/g, ' ');
 
             // List of filler words to exclude from capitalization
