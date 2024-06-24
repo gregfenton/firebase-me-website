@@ -1,0 +1,46 @@
+
+.header {
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: space-between;
+    /* Space out header buttons and menu button */
+    align-items: center;
+    /* Vertically center the items */
+    /* random theme? */
+    border-bottom: 2px solid orangered;
+}
+
+.header .header-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: nowrap;
+    /* Prevent wrapping */
+    overflow-x: auto;
+    /* Allow horizontal scrolling if necessary */
+}
+
+.header .header-buttons button {
+    white-space: nowrap;
+    /* Prevent text from wrapping inside the buttons */
+}
+
+.header button {
+    background-color: #575757;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    /* random theme? */
+    transition: background-color 0.3s;
+}
+
+.header button:hover {
+    background-color: gold;
+}
