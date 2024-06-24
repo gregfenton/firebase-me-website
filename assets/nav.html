@@ -191,7 +191,7 @@
         }
 
         // Fetch the JSON data and initialize the navbar and header
-        fetch('structure.json')
+        fetch('/structure.json')
             .then(response => response.json())
             .then(data => {
                 jsonData = data;
@@ -216,7 +216,7 @@
         }
 
         function loadThemes() {
-            fetch('themes.json')
+            fetch('/themes.json')
                 .then(response => response.json())
                 .then(data => {
                     const themeList = document.getElementById('theme-list');
