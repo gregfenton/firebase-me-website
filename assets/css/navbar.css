@@ -5,6 +5,7 @@
     color: white;
     display: flex;
     flex-direction: column;
+    /* random theme? */
     border-right: 2px solid orangered;
 }
 
@@ -64,9 +65,9 @@
 
 .navbar {
     flex: 1;
-    overflow: auto;
     flex-direction: column;
-    overflow: hidden;
+    overflow:visible;
+    /* random theme? */
     background-color: #333;
 }
 .navbar button,
