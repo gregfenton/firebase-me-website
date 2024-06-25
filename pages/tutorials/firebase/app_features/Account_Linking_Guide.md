@@ -42,7 +42,7 @@ const firebaseConfig = {
   projectId: 'YOUR_PROJECT_ID',
   storageBucket: 'YOUR_STORAGE_BUCKET',
   messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-  appId: 'YOUR_APP_ID',
+  appId: 'YOUR_APP_ID'
 };
 
 const myApp = initializeApp(firebaseConfig);
@@ -58,11 +58,7 @@ Account linking allows users to link multiple authentication providers to a sing
 
 ```javascript
 try {
-  const userCredential = await signInWithEmailAndPassword(
-    myAuth,
-    email,
-    password
-  );
+  const userCredential = await signInWithEmailAndPassword(myAuth, email, password);
   const user = userCredential.user;
   // User signed in
 } catch (error) {
@@ -101,11 +97,7 @@ A master account is a centralized account that manages multiple authentication i
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 try {
-  const userCredential = createUserWithEmailAndPassword(
-    myAuth,
-    email,
-    password
-  );
+  const userCredential = createUserWithEmailAndPassword(myAuth, email, password);
 
   // account now created
   const user = userCredential.user;
@@ -114,14 +106,10 @@ try {
 }
 ```
 
-1. **Link Additional Authentication Methods**
+2. **Link Additional Authentication Methods**
 
 ```javascript
-import {
-  GoogleAuthProvider,
-  FacebookAuthProvider,
-  linkWithPopup,
-} from 'firebase/auth';
+import { GoogleAuthProvider, FacebookAuthProvider, linkWithPopup } from 'firebase/auth';
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
@@ -190,7 +178,12 @@ Here’s a sample implementation demonstrating account linking, sign-in, and unl
 ```javascript
 import React, { useState, useEffect } from 'react';
 import { auth } from './firebase';
-import { onAuthStateChanged, GoogleAuthProvider, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import {
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signOut
+} from 'firebase/auth';
 
 const AuthManager = () => {
   const [user, setUser] = useState(null);
@@ -231,11 +224,7 @@ const AuthManager = () => {
           <button onClick={() => signOut(myAuth)}>Sign Out</button>
         </div>
       ) : (
-        <button
-          onClick={() =>
-            signInWithEmailAndPassword(myAuth, 'test@example.com', 'password')
-          }
-        >
+        <button onClick={() => signInWithEmailAndPassword(myAuth, 'test@example.com', 'password')}>
           Sign In
         </button>
       )}
