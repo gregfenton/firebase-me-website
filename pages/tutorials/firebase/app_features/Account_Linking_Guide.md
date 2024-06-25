@@ -1,7 +1,7 @@
-
 # Comprehensive Guide on Account Linking and Managing Multiple Instances of Authentication in Firebase
 
 ## Table of Contents
+
 1. [Introduction](#introduction)
 2. [Setting Up Firebase Authentication](#setting-up-firebase-authentication)
 3. [Account Linking](#account-linking)
@@ -33,21 +33,21 @@ Before implementing account linking, ensure you have Firebase Authentication set
 
 ```javascript
 // firebase.js
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: 'YOUR_API_KEY',
+  authDomain: 'YOUR_AUTH_DOMAIN',
+  projectId: 'YOUR_PROJECT_ID',
+  storageBucket: 'YOUR_STORAGE_BUCKET',
+  messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
+  appId: 'YOUR_APP_ID',
 };
 
-firebase.initializeApp(firebaseConfig);
+const myApp = initializeApp(firebaseConfig);
 
-export const auth = firebase.auth();
+export const myAuth = getAuth(myApp);
 ```
 
 ## Account Linking
@@ -57,31 +57,36 @@ Account linking allows users to link multiple authentication providers to a sing
 ### Step 1: Sign In with the Primary Account
 
 ```javascript
-auth.signInWithEmailAndPassword(email, password)
-  .then((userCredential) => {
-    const user = userCredential.user;
-    // User signed in
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+try {
+  const userCredential = await signInWithEmailAndPassword(
+    myAuth,
+    email,
+    password
+  );
+  const user = userCredential.user;
+  // User signed in
+} catch (error) {
+  console.error(error);
+}
 ```
 
 ### Step 2: Link an Additional Provider
 
 ```javascript
-const provider = new firebase.auth.GoogleAuthProvider();
+import { GoogleAuthProvider, linkWithPopup } from 'firebase/auth';
 
-auth.currentUser.linkWithPopup(provider)
-  .then((result) => {
-    // Accounts successfully linked
-    const credential = result.credential;
-    const user = result.user;
-    console.log('Accounts linked:', user);
-  })
-  .catch((error) => {
-    console.error('Error linking accounts:', error);
-  });
+const provider = new GoogleAuthProvider();
+
+try {
+  const result = linkWithPopup(myAuth.currentUser, provider);
+
+  // Accounts successfully linked
+  const credential = result.credential;
+  const user = result.user;
+  console.log('Accounts linked:', user);
+} catch (error) {
+  console.error('Error linking accounts:', error);
+}
 ```
 
 ## Master Account Management
@@ -93,37 +98,43 @@ A master account is a centralized account that manages multiple authentication i
 1. **Sign Up or Sign In the Master Account**
 
 ```javascript
-auth.createUserWithEmailAndPassword(email, password)
-  .then((userCredential) => {
-    const user = userCredential.user;
-    // Master account created
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+
+try {
+  const userCredential = createUserWithEmailAndPassword(
+    myAuth,
+    email,
+    password
+  );
+
+  // account now created
+  const user = userCredential.user;
+} catch (error) {
+  console.error(error);
+}
 ```
 
-2. **Link Additional Authentication Methods**
+1. **Link Additional Authentication Methods**
 
 ```javascript
+import {
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  linkWithPopup,
+} from 'firebase/auth';
+
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
 
-auth.currentUser.linkWithPopup(googleProvider)
-  .then((result) => {
-    // Google account linked
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+try {
+  const googResult = linkWithPopup(myAuth.currentUser, googleProvider);
+  // Google account linked
 
-auth.currentUser.linkWithPopup(facebookProvider)
-  .then((result) => {
-    // Facebook account linked
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+  const fbResult = linkWithPopup(myAuth.currentUser, facebookProvider);
+  // Facebook account linked
+} catch (error) {
+  console.error(error);
+}
 ```
 
 ## Handling Multiple Authentication Instances
@@ -133,28 +144,27 @@ When managing multiple authentication instances, it is essential to handle sign-
 ### Sign In with a Linked Account
 
 ```javascript
-const googleProvider = new firebase.auth.GoogleAuthProvider();
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+const googleProvider = new GoogleAuthProvider();
 
-auth.signInWithPopup(googleProvider)
-  .then((result) => {
-    const user = result.user;
-    console.log('Signed in with Google:', user);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+try {
+  const result = signInWithPopup(myAuth, googleProvider);
+  const user = result.user;
+  console.log('Signed in with Google:', user);
+} catch (error) {
+  console.error(error);
+}
 ```
 
 ### Unlink an Account
 
 ```javascript
-auth.currentUser.unlink('google.com')
-  .then(() => {
-    console.log('Google account unlinked');
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+try {
+  myAuth.currentUser.unlink('google.com');
+  console.log('Google account unlinked');
+} catch (error) {
+  console.error(error);
+}
 ```
 
 ### Managing Auth States
@@ -162,7 +172,9 @@ auth.currentUser.unlink('google.com')
 Use Firebase Authentication state listeners to manage the user's authentication state across different providers.
 
 ```javascript
-auth.onAuthStateChanged((user) => {
+import { onAuthStateChanged } from 'firebase/auth';
+
+onAuthStateChanged(myAuth, (user) => {
   if (user) {
     console.log('User is signed in:', user);
   } else {
@@ -178,36 +190,35 @@ Here’s a sample implementation demonstrating account linking, sign-in, and unl
 ```javascript
 import React, { useState, useEffect } from 'react';
 import { auth } from './firebase';
+import { onAuthStateChanged, GoogleAuthProvider, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 const AuthManager = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = onAuthStateChanged((user) => {
       setUser(user);
     });
     return unsubscribe;
   }, []);
 
   const linkGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.currentUser.linkWithPopup(provider)
-      .then((result) => {
-        console.log('Google account linked:', result.user);
-      })
-      .catch((error) => {
-        console.error('Error linking Google account:', error);
-      });
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = myAuth.currentUser.linkWithPopup(provider);
+      console.log('Google account linked:', result.user);
+    } catch (error) {
+      console.error('Error linking Google account:', error);
+    }
   };
 
   const unlinkGoogle = () => {
-    auth.currentUser.unlink('google.com')
-      .then(() => {
-        console.log('Google account unlinked');
-      })
-      .catch((error) => {
-        console.error('Error unlinking Google account:', error);
-      });
+    try {
+      myAuth.currentUser.unlink('google.com');
+      console.log('Google account unlinked');
+    } catch (error) {
+      console.error('Error unlinking Google account:', error);
+    }
   };
 
   return (
@@ -217,10 +228,16 @@ const AuthManager = () => {
           <h2>Welcome, {user.email}</h2>
           <button onClick={linkGoogle}>Link Google Account</button>
           <button onClick={unlinkGoogle}>Unlink Google Account</button>
-          <button onClick={() => auth.signOut()}>Sign Out</button>
+          <button onClick={() => signOut(myAuth)}>Sign Out</button>
         </div>
       ) : (
-        <button onClick={() => auth.signInWithEmailAndPassword('test@example.com', 'password')}>Sign In</button>
+        <button
+          onClick={() =>
+            signInWithEmailAndPassword(myAuth, 'test@example.com', 'password')
+          }
+        >
+          Sign In
+        </button>
       )}
     </div>
   );
